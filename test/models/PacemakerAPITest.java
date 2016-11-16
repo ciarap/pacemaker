@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 import static models.Fixtures.users;
+import static models.Fixtures.activities;
+
 
 import controllers.*;
 
@@ -55,5 +57,14 @@ public class PacemakerAPITest
     User marge = pacemaker.getUserByEmail("marge@simpson.com");
     pacemaker.deleteUser(marge.id);
     assertEquals (users.length-1, pacemaker.getUsers().size());    
-  }  
+  } 
+  @Test
+  public void testAddActivity()
+  {
+    User marge = pacemaker.getUserByEmail("marge@simpson.com");
+    Activity activity = pacemaker.createActivity(marge.id, activities[0].type, activities[0].location, activities[0].distance);
+    Activity returnedActivity = pacemaker.getActivity(activity.id);
+    assertEquals(activities[0],  returnedActivity);
+    assertNotSame(activities[0], returnedActivity);
+  }    
 }
