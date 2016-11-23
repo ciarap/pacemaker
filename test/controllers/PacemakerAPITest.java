@@ -1,4 +1,4 @@
-package models;
+package controllers;
 
 import static org.junit.Assert.*;
 
@@ -8,6 +8,8 @@ import static models.Fixtures.activities;
 
 
 import controllers.*;
+import models.Activity;
+import models.User;
 
 public class PacemakerAPITest
 {
@@ -67,4 +69,5 @@ public class PacemakerAPITest
     assertEquals(activities[0],  returnedActivity);
     assertNotSame(activities[0], returnedActivity);
   }    
+  
 }

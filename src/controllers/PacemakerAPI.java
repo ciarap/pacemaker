@@ -90,7 +90,7 @@ public class PacemakerAPI {
 	    userIndex       = (Map<Long, User>)     serializer.pop();
 	  }
 
-	  void store() throws Exception
+	  public void store() throws Exception
 	  {
 	    serializer.push(userIndex);
 	    serializer.push(emailIndex);
