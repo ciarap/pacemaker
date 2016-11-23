@@ -1,21 +1,36 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Collection;
 import com.google.common.base.Optional;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
 import java.util.HashMap;
 import java.util.Map;
 import models.Activity;
 import models.Location;
 import models.User;
+import utils.Serializer;
 
 public class PacemakerAPI {
 	private Map<Long, User> userIndex = new HashMap<>();
 	private Map<String, User> emailIndex = new HashMap<>();
 	private Map<Long, Activity> activitiesIndex = new HashMap<>();
+	private Serializer serializer;
 
 	public PacemakerAPI() {
 	}
 
+	 public PacemakerAPI(Serializer serializer)
+	  {
+	    this.serializer = serializer;
+	  }
+	 
 	public Collection<User> getUsers() {
 		return userIndex.values();
 	}
@@ -66,4 +81,20 @@ public class PacemakerAPI {
 			activity.get().route.add(new Location(latitude, longitude));
 		}
 	}
+	  @SuppressWarnings("unchecked")
+	  public void load() throws Exception
+	  {
+	    serializer.read();
+	    activitiesIndex = (Map<Long, Activity>) serializer.pop();
+	    emailIndex      = (Map<String, User>)   serializer.pop();
+	    userIndex       = (Map<Long, User>)     serializer.pop();
+	  }
+
+	  void store() throws Exception
+	  {
+	    serializer.push(userIndex);
+	    serializer.push(emailIndex);
+	    serializer.push(activitiesIndex);
+	    serializer.write(); 
+	  }
 }
