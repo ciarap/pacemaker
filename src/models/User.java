@@ -7,6 +7,8 @@ import java.util.Map;
 
 import com.google.common.base.Objects;
 
+import utils.ToJsonString;
+
 public class User {
 	public String firstName;
 	public String lastName;
@@ -28,10 +30,10 @@ public class User {
 	}
 
 	@Override
-	public String toString() {
-		return toStringHelper(this).addValue(id).addValue(firstName).addValue(lastName).addValue(password)
-				.addValue(email).toString();
-	}
+	  public String toString()
+	  {
+	    return new ToJsonString(getClass(), this).toString();
+	  }
 
 	@Override
 	public int hashCode() {

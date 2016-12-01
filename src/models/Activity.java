@@ -7,6 +7,8 @@ import java.util.List;
 
 import com.google.common.base.Objects;
 
+import utils.ToJsonString;
+
 public class Activity {
 	static Long counter = 0l;
 
@@ -29,10 +31,10 @@ public class Activity {
 	}
 
 	@Override
-	public String toString() {
-		return toStringHelper(this).addValue(id).addValue(type).addValue(location).addValue(distance).addValue(route)
-				.toString();
-	}
+	  public String toString()
+	  {
+	    return new ToJsonString(getClass(), this).toString();
+	  }
 
 	@Override
 	public int hashCode() {

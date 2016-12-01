@@ -4,6 +4,8 @@ import static com.google.common.base.MoreObjects.toStringHelper;
 
 import com.google.common.base.Objects;
 
+import utils.ToJsonString;
+
 public class Location {
 	static Long counter = 0l;
 
@@ -21,9 +23,10 @@ public class Location {
 	}
 
 	@Override
-	public String toString() {
-		return toStringHelper(this).addValue(id).addValue(latitude).addValue(longitude).toString();
-	}
+	  public String toString()
+	  {
+	    return new ToJsonString(getClass(), this).toString();
+	  }
 
 	@Override
 	public int hashCode() {
